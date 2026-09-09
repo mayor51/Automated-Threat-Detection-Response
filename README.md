@@ -76,7 +76,19 @@ The EICAR test file is a standardized antivirus test file designed to safely val
 
 * Wazuh detected the EICAR test file activity on the **Ubuntu endpoint**.
 * The Wazuh Agent forwarded the security event to the **Wazuh Manager running on Kali Linux**.
-* The generated alert provided relevant information including the **file name, file path, hash, timestamp, alert level, and detection rule**.
+* The generated alert provided relevant information including the **file name, file path, hash, timestamp, agent name, alert level, and detection rule**.
+
+### Detection Details
+
+| Field | Value |
+|---|---|
+| File Name | `eicar.com` |
+| File Path | `/root/eicar.com` |
+| SHA-1 | `3395856ce81f2b7382dee72602f798b642f14140` |
+| Timestamp | `17:14:17` |
+| Agent  | `TSAcademy` |
+| Alert Level | `12` |
+| Detection Rule | `87105` |
 
 ![detection](Screenshots/02_detection.png)
 ![detection_details](Screenshots/02_detection_details.png)
@@ -110,3 +122,25 @@ This demonstrates how SIEM detection, threat intelligence, and endpoint response
 - File Hash Analysis 
 - Wazuh Active Response 
 - Security Automation
+
+
+
+Automated-Threat-detection-Response/
+│
+├── README.md
+│
+├── Screenshots/
+│   ├── 01_eicar_download.png
+│   ├── 02_detection.png
+│   ├── 02_detection_details.png
+│   ├── 03_virustotal_dashboard.png
+│   ├── 03_virustotal_details.png
+│   └── 04_file_removed.png
+│
+├── scripts/
+│   └── remove-threat.sh
+│
+└── configuration/
+    ├── ubuntu-agent-ossec.conf
+    ├── kali-manager-ossec.conf
+    └── local_rules.xml

@@ -1,0 +1,15 @@
+Add this to your custom wazuh rules
+
+```
+<group name="syscheck,">
+<rule id="100200" level="7">
+<if_sid>550</if_sid>
+<description>File modifi ed in /root</description>
+</rule>
+<rule id="100201" level="7">
+<if_sid>554</if_sid>
+<description>File added to /root</description>
+</rule>
+</group>
+
+```
