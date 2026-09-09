@@ -74,7 +74,7 @@ The EICAR test file is a standardized antivirus test file designed to safely val
 
 ### Detection
 
-* Wazuh detected the EICAR test file activity on the **Ubuntu endpoint**.
+* Wazuh FIM  detected the EICAR test file activity on the **Ubuntu endpoint**.
 * The Wazuh Agent forwarded the security event to the **Wazuh Manager running on Kali Linux**.
 * The generated alert provided relevant information including the **file name, file path, hash, timestamp, agent name, alert level, and detection rule**.
 
@@ -107,6 +107,7 @@ The EICAR test file is a standardized antivirus test file designed to safely val
 ## Automated Response
 
 After the detection and threat-intelligence analysis, **Wazuh Active Response automatically removed the detected file from the Ubuntu endpoint**.
+The VirusTotal analysis generated rule `87105`, which triggered the configured Wazuh Active Response to remove the file.
 
 ![file_removed](Screenshots/04_file_removed.png)
 
@@ -118,14 +119,15 @@ This demonstrates how SIEM detection, threat intelligence, and endpoint response
 
 - Endpoint Detection 
 - Threat Intelligence 
-- VirusTotal API  Integration
+- VirusTotal API Integration
 - File Hash Analysis 
 - Wazuh Active Response 
 - Security Automation
 
 
+```
 
-Automated-Threat-detection-Response/
+Automated-Threat-Detection-Response/
 │
 ├── README.md
 │
@@ -144,3 +146,5 @@ Automated-Threat-detection-Response/
     ├── ubuntu-agent-ossec.conf
     ├── kali-manager-ossec.conf
     └── local_rules.xml
+
+```
