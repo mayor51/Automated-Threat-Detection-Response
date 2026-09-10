@@ -61,7 +61,7 @@ This project uses automated file detection triggered by an external API response
 ### Wazuh Rule Flow:
 |Rule ID | level | sources | Role |
 |--------|-------|---------|------|
-| 100200 / 100201| 7       | local_rules.xml| 
+| 100200 / 100201| 7       | local_rules.xml| narrows FIM eventsto /root and feed their hashes to VirusTotal integration
 | 87105  | 12    | wazuh built-in VirusTotal ruleset.| Triggers when Virustotal reports that security vendors flagged the  file hash, providing a detection signal
 
 
@@ -124,12 +124,10 @@ The VirusTotal analysis generated rule `87105`, which triggered the configured W
 
 This demonstrates how SIEM detection, threat intelligence, and endpoint response can be integrated into an automated security workflow, reducing the need for manual intervention.
 
-### cleanup:
-Ater testing, verify that the EICAR file has been removed from ubuntu endpoint.
 
-```
-sudo rm -f /root/eicar.com
-```
+*(Fallback: if `/root/eicar.com` is ever still present after a test, run `sudo rm -f /root/eicar.com` this should not be needed under normal operation.)*
+
+
 ## Conclusion:
 This projects reinforced how to layer detection logic so automation only acts on confirmed threats, not raw alerts.
 A distinction that matters in any SOC environment where false positive carry real costs.
