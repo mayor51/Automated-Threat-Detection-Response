@@ -1,4 +1,3 @@
-This is the Active Response script that receives the alert JSON, extracts the file path from the VirusTotal data, and removes the file. Your lab instructions use exactly this script.
 
 #!/bin/bash
 

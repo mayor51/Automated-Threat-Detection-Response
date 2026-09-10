@@ -7,6 +7,11 @@ This project demonstrates an automated threat detection and response workflow us
 
 An EICAR test file was downloaded onto an Ubuntu endpoint running the Wazuh Agent. Wazuh File Integrity Monitoring (FIM) detected the file activity and forwarded the event to the Wazuh Manager running on Kali Linux. The file hash was analyzed through the VirusTotal API for threat intelligence enrichment, after which Wazuh Active Response automatically removed the detected file.
 
+### Lab Safety Notice:
+This project uses automated file detection triggered by an external API response. It should be tested in a controlled lab environment. Do not deploy this Active Response configuration without proper testing, safeguarding, and authorization. 
+
+
+
 ## Architecture
 
 ```
@@ -53,11 +58,17 @@ An EICAR test file was downloaded onto an Ubuntu endpoint running the Wazuh Agen
 | Threat Intelligence | VirusTotal API        |
 | Automated Response  | Wazuh Active Response |
 
+### Wazuh Rule Flow:
+|Rule ID | level | sources | Role |
+|--------|-------|---------|------|
+| 100200 / 100201| 7       | local_rules.xml| 
+| 87105  | 12    | wazuh built-in VirusTotal ruleset.| Triggers when Virustotal reports that security vendors flagged the  file hash, providing a detection signal
+
 
 
 ## Security Test
 
-To safely simulate a malware detection event, the **EICAR test file** was downloaded onto the Ubuntu endpoint running the Wazuh Agent.
+To safely simulate a malware detection event, the **EICAR test file** was downloaded onto the Ubuntu endpoint running the Wazuh Agent (with jq already installed ['via scripts/setup-agent.sh'](scripts/setup-agent.sh))
 
 ```bash
 sudo apt install curl
@@ -113,7 +124,15 @@ The VirusTotal analysis generated rule `87105`, which triggered the configured W
 
 This demonstrates how SIEM detection, threat intelligence, and endpoint response can be integrated into an automated security workflow, reducing the need for manual intervention.
 
+### cleanup:
+Ater testing, verify that the EICAR file has been removed from ubuntu endpoint.
 
+```
+sudo rm -f /root/eicar.com
+```
+## Conclusion:
+This projects reinforced how to layer detection logic so automation only acts on confirmed threats, not raw alerts.
+A distinction that matters in any SOC environment where false positive carry real costs.
 
 ## Skills Demonstrated
 
@@ -126,8 +145,7 @@ This demonstrates how SIEM detection, threat intelligence, and endpoint response
 
 
 ```
-
-Automated-Threat-Detection-Response/
+Automated-Threat-detection-Response/
 │
 ├── README.md
 │
@@ -140,6 +158,7 @@ Automated-Threat-Detection-Response/
 │   └── 04_file_removed.png
 │
 ├── scripts/
+│   ├── setup-agent.sh
 │   └── remove-threat.sh
 │
 └── configuration/
